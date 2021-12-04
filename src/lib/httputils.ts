@@ -10,12 +10,17 @@ export async function getUserInfo(access_token: string) {
     },
   }).then((response) => response.json())
 }
-export async function getTopTracks(access_token: string) {
+export async function getTopTracks(access_token: string, type: string, timeRange: string, offset: number, timeLimit: number) {
   if (typeof access_token == 'undefined') {
     return [];
   }
+
+  let query = "time_range=" + timeRange;
+  query += "&offset=" + offset;
+  query += "&limit=" + timeLimit;
+
   return await fetch(
-    "https://api.spotify.com/v1/me/top/tracks?time_range=long_term",
+    "https://api.spotify.com/v1/me/top/" + type + "?" + query,
     {
       headers: {
         Accept: "application/json",

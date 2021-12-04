@@ -12,7 +12,7 @@
   <img src={cover} class="card__image" alt="brown couch" />
   <div class="card__content">
     {#if index}
-      <p class="card__text">{index + 1}</p>
+      <p class="card__text">#{index + 1}</p>
     {/if}
     <span class="card__title">{name}</span>
     {#if artists}

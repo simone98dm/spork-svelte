@@ -1,11 +1,13 @@
 <script lang="ts">
+  import { get } from "svelte/store";
+
   import Song from "./components/Song.svelte";
   import {
     buildSpotifyRedirectUrl,
     changeTheme,
     getHashParams,
   } from "./lib/common";
-  import { stateKey } from "./lib/costants";
+  import { stateKey, TimeLimit } from "./lib/costants";
   import { getTopTracks, getUserInfo } from "./lib/httputils";
 
   function btnLoginHandler() {
@@ -25,6 +27,17 @@
     if (typeof access_token != "undefined") {
       getUserInfo(access_token).then((response) => (user = response));
     }
+  }
+
+  let timeLimit = 20;
+  let offset = 0;
+  let type = "tracks";
+  let timeRange = "long_term";
+  let tracks = getTopTracks(access_token, type, timeRange, offset, timeLimit);
+  $: tracks = getTopTracks(access_token, type, timeRange, offset, timeLimit);
+
+  function changeTimeLimit(type: string): any {
+    timeRange = type;
   }
 </script>
 
@@ -49,7 +62,21 @@
       on:click={btnLoginHandler}>Log in with Spotify</button
     >
   {:else}
-    {#await getTopTracks(access_token) then data}
+    <div style="margin:auto">
+      <button
+        class="spoty-btn spoty-btn-sm spoty-btn-primary"
+        on:click={() => changeTimeLimit(TimeLimit.Years)}>Several years</button
+      >
+      <button
+        class="spoty-btn spoty-btn-sm spoty-btn-primary"
+        on:click={() => changeTimeLimit(TimeLimit.Months)}>Last 6 months</button
+      >
+      <button
+        class="spoty-btn spoty-btn-sm spoty-btn-primary"
+        on:click={() => changeTimeLimit(TimeLimit.Weeks)}>Last 4 weeks</button
+      >
+    </div>
+    {#await tracks then data}
       {#each data as item, index}
         <Song
           cover={item.album.images[0].url}
@@ -98,13 +125,13 @@
   .page__title {
     text-align: center;
     font-weight: bolder;
-    color: let(--color-text);
-    font-family: let(--font-family-primary);
+    color: var(--color-text);
+    font-family: var(--font-family-primary);
     font-size: 48px;
   }
 
   main {
-    background-color: let(--background-color);
+    background-color: var(--background-color);
     display: grid;
     justify-content: center;
     align-items: center;
