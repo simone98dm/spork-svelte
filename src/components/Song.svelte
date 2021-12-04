@@ -1,26 +1,36 @@
 <script lang="ts">
-  import type { Song } from "src/models/Tracks";
-  export let item: Song;
-  export let index: number;
+  import type { Artist } from "src/models/Tracks";
+
+  export let index: number | any;
+  export let cover: string | any;
+  export let name: string | any;
+  export let artists: Artist[] | any;
+  export let url: string | any;
 </script>
 
 <div class="card">
-  <img src={item.album.images[0].url} class="card__image" alt="brown couch" />
+  <img src={cover} class="card__image" alt="brown couch" />
   <div class="card__content">
-    <p class="card__date">{index + 1}</p>
-    <span class="card__title">{item.name}</span>
-    <div class="card__text">
-      {#each item.artists as artist}
-        <span>{artist.name}</span>
-      {/each}
-    </div>
-    <div class="card__text">
-      <a
-        class="spoty-btn spoty-btn-sm spoty-btn-primary"
-        href={item.external_urls.spotify}
-        target="_black">Open</a
-      >
-    </div>
+    {#if index}
+      <p class="card__text">{index + 1}</p>
+    {/if}
+    <span class="card__title">{name}</span>
+    {#if artists}
+      <div class="card__text">
+        {#each artists as artist}
+          <span>{artist.name}</span>
+        {/each}
+      </div>
+    {/if}
+    {#if url}
+      <div class="card__text">
+        <a
+          class="spoty-btn spoty-btn-sm spoty-btn-primary"
+          href={url}
+          target="_black">Open</a
+        >
+      </div>
+    {/if}
   </div>
 </div>
 

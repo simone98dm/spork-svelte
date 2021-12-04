@@ -1,5 +1,5 @@
 export interface Tracks {
-  items: Song[];
+  items: SSong[];
   total: number;
   limit: number;
   offset: number;
@@ -8,7 +8,7 @@ export interface Tracks {
   next: string;
 }
 
-export interface Song {
+export interface SSong {
   album: Album;
   artists: Artist[];
   available_markets: string[];

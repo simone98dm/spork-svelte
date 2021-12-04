@@ -1,26 +1,66 @@
 <script lang="ts">
   import Song from "./components/Song.svelte";
-  import { getTopTracks } from "./utils/utils";
-  function changeTheme() {
-    window.document.body.classList.toggle("dark");
+  import {
+    buildSpotifyRedirectUrl,
+    changeTheme,
+    getHashParams,
+  } from "./lib/common";
+  import { stateKey } from "./lib/costants";
+  import { getTopTracks, getUserInfo } from "./lib/httputils";
+
+  function btnLoginHandler() {
+    (window as any).location = buildSpotifyRedirectUrl();
+  }
+
+  let params = getHashParams();
+  let access_token = params.access_token;
+  let state = params.state;
+  let storedState = localStorage.getItem(stateKey);
+  let user = null;
+
+  if (access_token && (state == null || state !== storedState)) {
+    alert("There was an error during the authentication");
+  } else {
+    localStorage.removeItem(stateKey);
+    if (typeof access_token != "undefined") {
+      getUserInfo(access_token).then((response) => (user = response));
+    }
   }
 </script>
 
 <main>
-  <h1 class="page__title">
-    Your Top Tracks
+  {#if user}
+    <h1 class="page__title">
+      Hello🖐️ {user.display_name}, here your top spotify songs
+    </h1>
     <img
       on:click={changeTheme}
       alt="theme-choose"
       src="https://img.icons8.com/fluency/48/000000/color-palette.png"
     />
-  </h1>
-
-  {#await getTopTracks() then data}
-    {#each data as item, index}
-      <Song {item} {index} />
-    {/each}
-  {/await}
+  {:else}
+    <h1 class="page__title">
+      Hey🤙, check out your spotify top songs, please login before continue
+    </h1>
+  {/if}
+  {#if typeof access_token == "undefined"}
+    <button
+      class="spoty-btn spoty-btn-sm spoty-btn-primary"
+      on:click={btnLoginHandler}>Log in with Spotify</button
+    >
+  {:else}
+    {#await getTopTracks(access_token) then data}
+      {#each data as item, index}
+        <Song
+          cover={item.album.images[0].url}
+          name={item.name}
+          artists={item.artists}
+          url={item.external_urls.spotify}
+          {index}
+        />
+      {/each}
+    {/await}
+  {/if}
 </main>
 
 <style lang="scss">
@@ -58,13 +98,13 @@
   .page__title {
     text-align: center;
     font-weight: bolder;
-    color: var(--color-text);
-    font-family: var(--font-family-primary);
+    color: let(--color-text);
+    font-family: let(--font-family-primary);
     font-size: 48px;
   }
 
   main {
-    background-color: var(--background-color);
+    background-color: let(--background-color);
     display: grid;
     justify-content: center;
     align-items: center;
@@ -75,5 +115,23 @@
   * {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  .spoty-btn {
+    border: 0px;
+    margin-bottom: 20px;
+    text-decoration: none;
+  }
+  .spoty-btn-sm {
+    font-size: 12px;
+    line-height: 1;
+    border-radius: 500px;
+    padding: 11px 32px 9px;
+  }
+  .spoty-btn-primary {
+    color: #fff;
+    background-color: #1db954;
+    min-width: 113px;
+    margin-right: 25px;
   }
 </style>

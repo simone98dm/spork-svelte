@@ -1,0 +1,1 @@
+export let stateKey = "spotify_auth_state";
