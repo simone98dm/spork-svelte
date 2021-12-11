@@ -183,6 +183,7 @@
     background-color: #1db954;
     min-width: 113px;
     margin-right: 25px;
+    cursor: pointer;
   }
 
   @keyframes ldio-z6h7l1lpshs {
