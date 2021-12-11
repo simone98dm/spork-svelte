@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { SSong } from "./models/Tracks.ts";
   import { get } from "svelte/store";
 
   import Song from "./components/Song.svelte";
@@ -20,10 +21,10 @@
   let storedState = localStorage.getItem(stateKey);
   let user = null;
 
-  if (access_token && (state == null || state !== storedState)) {
+  if (access_token && (typeof state == "undefined" || state !== storedState)) {
     alert("There was an error during the authentication");
+    access_token = null;
   } else {
-    localStorage.removeItem(stateKey);
     if (typeof access_token != "undefined") {
       getUserInfo(access_token).then((response) => (user = response));
     }
@@ -33,8 +34,16 @@
   let offset = 0;
   let type = "tracks";
   let timeRange = "long_term";
-  let tracks = getTopTracks(access_token, type, timeRange, offset, timeLimit);
-  $: tracks = getTopTracks(access_token, type, timeRange, offset, timeLimit);
+  let tracks: SSong[] = [];
+
+  if (access_token != null) {
+    getTopTracks(access_token, type, timeRange, offset, timeLimit)
+      .then((response) => (tracks = response))
+      .catch((error) => console.log(error));
+  }
+  $: getTopTracks(access_token, type, timeRange, offset, timeLimit)
+    .then((response) => (tracks = response))
+    .catch((error) => console.log(error));
 
   function changeTimeLimit(type: string): any {
     timeRange = type;
@@ -56,7 +65,7 @@
       Hey🤙, check out your spotify top songs, please login before continue
     </h1>
   {/if}
-  {#if typeof access_token == "undefined"}
+  {#if access_token == null}
     <button
       class="spoty-btn spoty-btn-sm spoty-btn-primary"
       on:click={btnLoginHandler}>Log in with Spotify</button
