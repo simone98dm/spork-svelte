@@ -59,13 +59,9 @@
 <main>
   {#if user}
     <h1 class="page__title">
-      Hello🖐️ {user.display_name}, here your top spotify songs
+      Hello <span on:click={changeTheme}>🖐</span> ️ {user.display_name}, here
+      your top spotify songs
     </h1>
-    <img
-      on:click={changeTheme}
-      alt="theme-choose"
-      src="https://img.icons8.com/fluency/48/000000/color-palette.png"
-    />
   {:else}
     <h1 class="page__title">
       Hey🤙, check out your spotify top songs, please login before continue
@@ -96,15 +92,19 @@
         <div class="ldio-z6h7l1lpshs"><div /></div>
       </div>
     {:then data}
-      {#each data as item, index}
-        <Song
-          cover={item.album.images[0].url}
-          name={item.name}
-          artists={item.artists}
-          url={item.external_urls.spotify}
-          {index}
-        />
-      {/each}
+      {#if data.length > 0}
+        {#each data as item, index}
+          <Song
+            cover={item.album.images[0].url}
+            name={item.name}
+            artists={item.artists}
+            url={item.external_urls.spotify}
+            {index}
+          />
+        {/each}
+      {:else}
+        <h1>No data found</h1>
+      {/if}
     {:catch error}
       <p>{error}</p>
     {/await}
