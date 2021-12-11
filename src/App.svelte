@@ -1,7 +1,4 @@
 <script lang="ts">
-  import { SSong } from "./models/Tracks.ts";
-  import { get } from "svelte/store";
-
   import Song from "./components/Song.svelte";
   import {
     buildSpotifyRedirectUrl,
@@ -10,6 +7,7 @@
   } from "./lib/common";
   import { stateKey, TimeLimit } from "./lib/costants";
   import { getTopTracks, getUserInfo } from "./lib/httputils";
+  import type { SSong } from "./models/Tracks";
 
   function btnLoginHandler() {
     (window as any).location = buildSpotifyRedirectUrl();
@@ -34,7 +32,7 @@
   let offset = 0;
   let type = "tracks";
   let timeRange = "long_term";
-  let tracks = Promise.resolve([]);
+  let tracks = Promise.resolve([] as SSong[]);
 
   if (access_token != null) {
     tracks = getTopTracks(
@@ -43,7 +41,7 @@
       timeRange,
       offset,
       timeLimit
-    ).catch((error) => console.log(error));
+    ).catch(() => [] as SSong[]);
   }
   $: tracks = getTopTracks(
     access_token,
@@ -51,7 +49,7 @@
     timeRange,
     offset,
     timeLimit
-  ).catch((error) => console.log(error));
+  ).catch(() => [] as SSong[]);
 
   function changeTimeLimit(type: string): any {
     timeRange = type;
