@@ -157,7 +157,7 @@
     justify-content: center;
     align-items: center;
     padding: 0;
-    margin: 0 250px 0 250px;
+    margin: 0;
   }
 
   * {
@@ -170,12 +170,14 @@
     margin-bottom: 20px;
     text-decoration: none;
   }
+
   .spoty-btn-sm {
     font-size: 12px;
     line-height: 1;
     border-radius: 500px;
     padding: 11px 32px 9px;
   }
+
   .spoty-btn-primary {
     color: #fff;
     background-color: #1db954;
@@ -191,6 +193,7 @@
       transform: translate(-50%, -50%) rotate(360deg);
     }
   }
+
   .ldio-z6h7l1lpshs div {
     position: absolute;
     left: 0;
@@ -203,11 +206,13 @@
     border-top-color: transparent;
     border-radius: 50%;
   }
+
   .ldio-z6h7l1lpshs div {
     animation: ldio-z6h7l1lpshs 1s linear infinite;
     top: 100px;
     left: 100px;
   }
+
   .loadingio-spinner-rolling-xjk8h47j69 {
     width: 200px;
     height: 200px;
@@ -215,6 +220,7 @@
     overflow: hidden;
     background: #ffffff;
   }
+
   .ldio-z6h7l1lpshs {
     width: 100%;
     height: 100%;
@@ -223,6 +229,7 @@
     backface-visibility: hidden;
     transform-origin: 0 0; /* see note above */
   }
+
   .ldio-z6h7l1lpshs div {
     box-sizing: content-box;
   }
