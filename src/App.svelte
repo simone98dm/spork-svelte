@@ -34,16 +34,24 @@
   let offset = 0;
   let type = "tracks";
   let timeRange = "long_term";
-  let tracks: SSong[] = [];
+  let tracks = Promise.resolve([]);
 
   if (access_token != null) {
-    getTopTracks(access_token, type, timeRange, offset, timeLimit)
-      .then((response) => (tracks = response))
-      .catch((error) => console.log(error));
+    tracks = getTopTracks(
+      access_token,
+      type,
+      timeRange,
+      offset,
+      timeLimit
+    ).catch((error) => console.log(error));
   }
-  $: getTopTracks(access_token, type, timeRange, offset, timeLimit)
-    .then((response) => (tracks = response))
-    .catch((error) => console.log(error));
+  $: tracks = getTopTracks(
+    access_token,
+    type,
+    timeRange,
+    offset,
+    timeLimit
+  ).catch((error) => console.log(error));
 
   function changeTimeLimit(type: string): any {
     timeRange = type;
@@ -85,7 +93,11 @@
         on:click={() => changeTimeLimit(TimeLimit.Weeks)}>Last 4 weeks</button
       >
     </div>
-    {#await tracks then data}
+    {#await tracks}
+      <div class="loadingio-spinner-rolling-xjk8h47j69">
+        <div class="ldio-z6h7l1lpshs"><div /></div>
+      </div>
+    {:then data}
       {#each data as item, index}
         <Song
           cover={item.album.images[0].url}
@@ -95,6 +107,8 @@
           {index}
         />
       {/each}
+    {:catch error}
+      <p>{error}</p>
     {/await}
   {/if}
 </main>
@@ -118,7 +132,7 @@
     --color-highlight-primary: #ffef7e;
     --color-highlight-secondary: #b7f9e9;
     --border-radius-primary: 32px;
-    --background-color: #e2e2e2;
+    --background-color: #ffffff;
     --card-background-color: #dbdbdb;
   }
 
@@ -145,7 +159,7 @@
     justify-content: center;
     align-items: center;
     padding: 0;
-    margin: 0;
+    margin: 0 250px 0 250px;
   }
 
   * {
@@ -169,5 +183,49 @@
     background-color: #1db954;
     min-width: 113px;
     margin-right: 25px;
+  }
+
+  @keyframes ldio-z6h7l1lpshs {
+    0% {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100% {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+  .ldio-z6h7l1lpshs div {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 108px;
+    height: 108px;
+    border: 20px solid #1db954;
+    border-top-color: transparent;
+    border-radius: 50%;
+  }
+  .ldio-z6h7l1lpshs div {
+    animation: ldio-z6h7l1lpshs 1s linear infinite;
+    top: 100px;
+    left: 100px;
+  }
+  .loadingio-spinner-rolling-xjk8h47j69 {
+    width: 200px;
+    height: 200px;
+    display: inline-block;
+    overflow: hidden;
+    background: #ffffff;
+  }
+  .ldio-z6h7l1lpshs {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform: translateZ(0) scale(1);
+    backface-visibility: hidden;
+    transform-origin: 0 0; /* see note above */
+  }
+  .ldio-z6h7l1lpshs div {
+    box-sizing: content-box;
   }
 </style>
