@@ -8,7 +8,6 @@
   import { stateKey, TimeLimit } from "./lib/costants";
   import { getTopTracks, getUserInfo } from "./lib/httputils";
   import type { SSong } from "./models/Tracks";
-
   function btnLoginHandler() {
     (window as any).location = buildSpotifyRedirectUrl();
   }

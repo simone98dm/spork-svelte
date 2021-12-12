@@ -1,8 +1,8 @@
 <script lang="ts">
   import type { Artist } from "src/models/Tracks";
 
-  export let index: number | any;
   export let cover: string | any;
+  export let index: number;
   export let name: string | any;
   export let artists: Artist[] | any;
   export let url: string | any;
