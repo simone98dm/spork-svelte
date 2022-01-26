@@ -152,7 +152,9 @@
 
   main {
     background-color: var(--background-color);
-    display: grid;
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 auto;
     justify-content: center;
     align-items: center;
     padding: 0;

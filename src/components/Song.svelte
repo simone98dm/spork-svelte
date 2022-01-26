@@ -48,14 +48,15 @@
   }
 
   .card {
-    // max-width: 960px;
+    max-width: 960px;
+    min-width: 960px;
     border-radius: var(--border-radius-primary);
     box-shadow: 24px 24px 80px rgba(0, 0, 0, 0.1);
     padding: 20px 20px 28px 20px;
     box-sizing: border-box;
     margin: 20px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     background-color: var(--card-background-color);
 
     @include mediaBig {
