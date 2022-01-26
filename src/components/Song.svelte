@@ -67,6 +67,28 @@
     }
   }
 
+  @media (max-width: 800px) {
+    .card {
+      max-width: 75%;
+      min-width: 75%;
+      display: block;
+    }
+  }
+  @media (max-width: 600px) {
+    .card {
+      max-width: 50%;
+      min-width: 50%;
+      display: block;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    .card {
+      max-width: 95%;
+      min-width: 95%;
+    }
+  }
+
   .card__image {
     width: 100%;
     max-height: 300px;
