@@ -10,7 +10,7 @@
 <div
   class="w-screen bg-white dark:bg-gray-900 flex flex-row flex-wrap p-3 overflow-hidden"
 >
-  <div class="mx-auto w-2/3">
+  <div class="mx-auto md:w-2/3">
     <div
       class="rounded-lg shadow-lg bg-neutral-600 dark:bg-gray-600 w-full flex flex-row flex-wrap p-3 antialiased"
       style="background-image: url('{cover}');background-repeat: no-repat;background-size: cover;background-blend-mode: multiply;"
