@@ -1,5 +1,5 @@
 export interface Tracks {
-  items: SSong[];
+  items: SongInfo[];
   total: number;
   limit: number;
   offset: number;
@@ -8,7 +8,7 @@ export interface Tracks {
   next: string;
 }
 
-export interface SSong {
+export interface SongInfo {
   album: Album;
   artists: Artist[];
   available_markets: string[];
@@ -89,4 +89,58 @@ export interface ExternalIDS {
 
 export enum ItemType {
   Track = "track",
+}
+
+export interface ICreatePlaylistResponse {
+  collaborative: any;
+  description: any;
+  external_urls: any;
+  followers: any;
+  href: any;
+  id: any;
+  images: any;
+  name: any;
+  owner: any;
+  primary_color: any;
+  _public: any;
+  snapshot_id: any;
+  tracks: any;
+  type: any;
+  uri: any;
+}
+
+
+export interface IUser {
+  country: string;
+  display_name: string;
+  email: string;
+  explicit_content: ExplicitContent;
+  external_urls: ExternalUrls;
+  followers: Followers;
+  href: string;
+  id: string;
+  images: Image[];
+  product: string;
+  type: string;
+  uri: string;
+}
+
+export interface ExplicitContent {
+  filter_enabled: boolean;
+  filter_locked: boolean;
+}
+
+export interface ExternalUrls {
+  spotify: string;
+}
+
+export interface Followers {
+  href: string;
+  total: number;
+}
+
+export interface Image {
+  url: string;
+  height: number;
+  width: number;
 }

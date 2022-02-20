@@ -2,163 +2,53 @@
   import type { Artist } from "src/models/Tracks";
 
   export let cover: string | any;
-  export let index: number;
   export let name: string | any;
   export let artists: Artist[] | any;
   export let url: string | any;
 </script>
 
-<div class="card">
-  <img src={cover} class="card__image" alt="brown couch" />
-  <div class="card__content">
-    {#if index}
-      <p class="card__text">#{index + 1}</p>
-    {/if}
-    <span class="card__title">{name}</span>
-    {#if artists}
-      <div class="card__text">
-        {#each artists as artist}
-          <span>{artist.name}</span>
-        {/each}
+<div
+  class="w-screen bg-white dark:bg-gray-900 flex flex-row flex-wrap p-3 overflow-hidden"
+>
+  <div class="mx-auto w-2/3">
+    <div
+      class="rounded-lg shadow-lg bg-neutral-600 dark:bg-gray-600 w-full flex flex-row flex-wrap p-3 antialiased"
+      style="background-image: url('{cover}');background-repeat: no-repat;background-size: cover;background-blend-mode: multiply;"
+    >
+      <div class="md:w-1/3 w-full">
+        <img
+          class="rounded-lg shadow-lg antialiased"
+          src={cover}
+          alt="track cover"
+        />
       </div>
-    {/if}
-    {#if url}
-      <div class="card__text">
-        <a
-          class="spoty-btn spoty-btn-sm spoty-btn-primary"
-          href={url}
-          target="_black">Open</a
+      <div class="md:w-2/3 w-full px-3 flex flex-row flex-wrap">
+        <div
+          class="w-full text-right text-gray-700 font-semibold relative pt-3 md:pt-0"
         >
+          <div class="text-2xl text-white leading-tight">{name}</div>
+          {#if artists}
+            <div
+              class="text-normal text-gray-300 hover:text-gray-400 cursor-pointer"
+            >
+              {#each artists as artist}
+                <span class="border-b border-dashed border-gray-500 pb-1"
+                  >{artist.name}</span
+                >
+              {/each}
+            </div>
+          {/if}
+          {#if url}
+            <div
+              class="text-sm text-gray-300 hover:text-gray-400 cursor-pointer md:absolute pt-3 md:pt-0 bottom-0 right-0"
+            >
+              <a href={url} target="_black">Open</a>
+            </div>
+          {/if}
+        </div>
       </div>
-    {/if}
+    </div>
   </div>
 </div>
 
-<style lang="scss">
-  @mixin mediaBig {
-    @media (min-width: 576px) {
-      @content;
-    }
-  }
-
-  @include mediaBig {
-    :root {
-      --font-size-title: 40px;
-    }
-  }
-
-  .card {
-    max-width: 960px;
-    min-width: 960px;
-    border-radius: var(--border-radius-primary);
-    box-shadow: 24px 24px 80px rgba(0, 0, 0, 0.1);
-    padding: 20px 20px 28px 20px;
-    box-sizing: border-box;
-    margin: 20px;
-    display: flex;
-    flex-direction: row;
-    background-color: var(--card-background-color);
-
-    @include mediaBig {
-      flex-direction: row;
-      align-items: center;
-      margin: 40px;
-      padding: 32px;
-    }
-  }
-
-  @media (max-width: 800px) {
-    .card {
-      max-width: 75%;
-      min-width: 75%;
-      display: block;
-    }
-  }
-  @media (max-width: 600px) {
-    .card {
-      max-width: 50%;
-      min-width: 50%;
-      display: block;
-    }
-  }
-
-  @media (max-width: 1000px) {
-    .card {
-      max-width: 95%;
-      min-width: 95%;
-    }
-  }
-
-  .card__image {
-    width: 100%;
-    max-height: 300px;
-    border-radius: var(--border-radius-primary);
-    object-fit: cover;
-    margin-bottom: 18px;
-
-    @include mediaBig {
-      width: 45%;
-      max-height: none;
-      min-height: 400px;
-      margin-bottom: 0;
-    }
-  }
-
-  .card__content {
-    @include mediaBig {
-      width: 55%;
-      padding-left: 40px;
-    }
-  }
-
-  .card__text {
-    display: block;
-    font-family: var(--font-family-secondary);
-    font-size: var(--font-size-caption);
-    line-height: var(--line-height-caption);
-    text-transform: uppercase;
-    color: var(--color-text);
-    margin-bottom: 6px;
-    margin-top: 20px;
-
-    @include mediaBig {
-      margin-bottom: 8px;
-    }
-  }
-
-  .card__title {
-    font-family: var(--font-family-primary);
-    font-size: var(--font-size-title);
-    line-height: var(--line-height-title);
-    color: var(--color-text);
-    box-decoration-break: clone;
-    background-image: linear-gradient(
-      90deg,
-      var(--color-highlight-primary),
-      var(--color-highlight-secondary)
-    );
-    background-size: 100% 42%;
-    background-repeat: no-repeat;
-    background-position: 0 85%;
-    padding: 0 4px;
-    margin-left: -4px;
-  }
-
-  .spoty-btn {
-    margin-bottom: 20px;
-    text-decoration: none;
-  }
-  .spoty-btn-sm {
-    font-size: 12px;
-    line-height: 1;
-    border-radius: 500px;
-    padding: 11px 32px 9px;
-  }
-  .spoty-btn-primary {
-    color: #fff;
-    background-color: #1db954;
-    min-width: 113px;
-    margin-right: 25px;
-    cursor: pointer;
-  }
-</style>
+<style></style>

@@ -1,7 +1,7 @@
 import { stateKey } from "./costants";
 
 export function changeTheme() {
-  window.document.body.classList.toggle("dark");
+  window.document.querySelector('html').classList.toggle("dark");
 }
 
 export function getHashParams(): any {
@@ -32,6 +32,7 @@ export function buildSpotifyRedirectUrl() {
   let state = generateRandomString(16);
   localStorage.setItem(stateKey, state);
   let scope = "user-top-read";
+  // let scope = "user-top-read playlist-read-private playlist-modify-private";
 
   let url = "https://accounts.spotify.com/authorize";
   url += "?response_type=token";
