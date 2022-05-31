@@ -23,7 +23,7 @@ jobs:
       - name: create env file
         run: |
           touch .env
-          echo secrets.VITE_CLIENT_ID
+          echo ${{ secrets.VITE_CLIENT_ID }}
           echo VITE_CLIENT_ID=${{ secrets.VITE_CLIENT_ID }} >> .env
           
       - name: Deploy 🚀
