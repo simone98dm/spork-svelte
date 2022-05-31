@@ -1,9 +1,19 @@
-# Spork
+# Spork 🎧
 
-'Spork' is an open-source project which aims to show all top tracks from your Spotify account, the app uses the Spotify API.
+Show your top listened Spotify tracks with a good looking UI.
 
-In order to use the web app (from gh-pages) to fetch data from your account, you need to authorize it before. After you authorize the app you can see all your top tracks in the app. The app can be unlinked from your Spotify account, and as you can see all the requests goes directly to the Spotify API.
+## How to use it
 
-To use it, you need to have a Spotify account.
+On the webpage just login into with your Spotify account, then authorize the app to get access to your account info (no worries, then you can revoke the access, is just needed to get only the top listened tranks).
 
-All right and data are linked to Spotify, all rights are reserved to Spotify.
+## Run locally
+
+```bash
+$ npm install
+
+(update the client id and secret)
+
+$ npm run dev
+```
+
+The web app should be available on port `3000`
