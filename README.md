@@ -1,6 +1,6 @@
 # Spork 🎧
 
-Show your top listened Spotify tracks with a good looking UI.
+**this project has been updated to a new version, you can find it [here](https://github.com/simone98dm/sporky)**
 
 ## How to use it
 
