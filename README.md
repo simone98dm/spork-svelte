@@ -1,6 +1,6 @@
 # Spork 🎧
 
-**this project has been updated to a new version, you can find it [here](https://github.com/simone98dm/sporky)**
+**This project has been deprecated, you can find the new version [here](https://github.com/simone98dm/sporky)**
 
 ## How to use it
 
